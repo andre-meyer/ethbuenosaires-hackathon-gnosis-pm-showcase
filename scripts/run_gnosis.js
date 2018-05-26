@@ -14,7 +14,7 @@ var localCalculatedProfit
 const LOWERBOUND = config.LOWERBOUND
 const UPPERBOUND = config.UPPERBOUND
 
-const provider = new HDWalletProvider("stool arrow fatigue sunny actual bind radio license enemy peanut penalty soccer", "https://rinkeby.infura.io/O6AgF19kplltX0VsPbYg");
+const provider = new HDWalletProvider(config.mnemonid, config.GNOSIS_OPTIONS.ethereum);
 
 const GNOSIS_OPTIONS = {
     ethereum: provider,
