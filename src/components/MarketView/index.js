@@ -3,8 +3,12 @@ import { compose, lifecycle } from 'recompose'
 import classnames from 'classnames/bind'
 import moment from 'moment'
 
+import Outcomes from './Outcomes'
+
 import withGnosis from 'components/withGnosis'
 import collectAllContractsForMarket from 'utils/collectAllContractsForMarket'
+import fetchOutcomeTokenHolders from 'utils/fetchOutcomeTokenHolders'
+import fetchMarketVars from 'utils/fetchMarketVars'
 
 import style from './style.css'
 
@@ -14,30 +18,35 @@ import {
 
 const cx = classnames.bind(style)
 
-const MARKET_TEST_ADDRESS = '0xe3f8f1c5102c016710bb1028e27e0ca7e268d638'
+const MARKET_TEST_ADDRESS = '0xf4294b5783fce0644943444bf3ee6922995f5e95'
 
-const MarketView = ({ gnosis, contracts }) => {
-  if (!contracts) {
+const MarketView = ({
+  gnosis,
+  market,
+}) => {
+  if (!market) {
     return null
   }
 
-  const resolutionDate = moment.utc(contracts.eventDescription.resolutionDate).local()
+  const resolutionDate = moment.utc(market.resolutionDate).local()
   const timeUntil = moment.duration(resolutionDate.diff(moment())).humanize()
 
   return (
     <div className={cx('marketView')}>
       <Card>
-        <CardHeader title={contracts.eventDescription.title} subheader={
+        <CardHeader title={market.title} subheader={
           <Typography component="span">
             Will resolve in {timeUntil} – {resolutionDate.format('LLL')}
           </Typography>
         } />
         <CardContent>
           <Typography component="p">
-            {contracts.eventDescription.description}
+            {market.description}
           </Typography>
           <Typography component="p">
           </Typography>
+
+          <Outcomes market={market} />
         </CardContent>
       </Card>
     </div>
@@ -49,8 +58,9 @@ const enhancer = compose(
   lifecycle({
     async componentDidMount() {
       const contracts = await collectAllContractsForMarket(this.props.gnosis, MARKET_TEST_ADDRESS)
-      console.log(contracts)
-      this.setState({ contracts })
+      const market = await fetchMarketVars(this.props.gnosis, contracts)
+
+      this.setState({ market })
     }
   })
 )

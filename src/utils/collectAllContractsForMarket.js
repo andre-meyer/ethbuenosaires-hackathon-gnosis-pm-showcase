@@ -22,12 +22,16 @@ const getMarket = async (gnosisInstance, marketAddress) => {
   
   const eventDescription = await gnosisInstance.loadEventDescription(ipfsHash)
 
+  // get outcome tokens
+  const outcomeTokens = await eventInstance.getOutcomeTokens()
+
+  const outcomeTokenInstances = await Promise.all(outcomeTokens.map((outcomeToken) => gnosisInstance.contracts.Token.at(outcomeToken)))
 
   return {
     market: marketInstance,
     event: eventInstance,
     oracle: oracleInstance,
-    collateralToken: collateralTokenInstance,
+    outcomeTokens: outcomeTokenInstances,
     eventDescription
   }
 }
