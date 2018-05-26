@@ -1,8 +1,8 @@
 import React from 'react'
 import Gnosis from '@gnosis.pm/pm-js'
 
-const withGnosis = (options) => (Component) => {
-  return class GnosisWrapper extends React.Component {
+const withGnosis = (options) => (Component) =>
+  class GnosisWrapper extends React.Component {
     constructor(props) {
       super(props)
   
@@ -10,6 +10,7 @@ const withGnosis = (options) => (Component) => {
         gnosis: undefined,
       }
     }
+
     async componentDidMount() {
       const gnosisInstance = await Gnosis.create(options)
   
@@ -24,6 +25,5 @@ const withGnosis = (options) => (Component) => {
       return <Component gnosis={this.state.gnosis} {...this.props} />
     }
   }
-}
 
 export default withGnosis
