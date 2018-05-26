@@ -1,0 +1,43 @@
+{
+  "name": "gnosis-pm-showcase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andre-meyer/ethbuenosaires-hackathon-gnosis-pm-showcase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andre-meyer/ethbuenosaires-hackathon-gnosis-pm-showcase/issues"
+  },
+  "homepage": "https://github.com/andre-meyer/ethbuenosaires-hackathon-gnosis-pm-showcase#readme",
+  "dependencies": {
+    "@gnosis.pm/pm-js": "^2.1.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-hot-loader": "^4.2.0",
+    "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta",
+    "@babel/core": "^7.0.0-beta",
+    "@babel/preset-env": "^7.0.0-beta",
+    "@babel/preset-react": "^7.0.0-beta",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^8.0.0-beta.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-react": "^7.8.2",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
