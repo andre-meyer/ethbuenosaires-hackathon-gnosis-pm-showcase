@@ -18,13 +18,17 @@
   },
   "homepage": "https://github.com/andre-meyer/ethbuenosaires-hackathon-gnosis-pm-showcase#readme",
   "dependencies": {
+    "@gnosis.pm/pm-contracts": "^1.0.4",
     "@gnosis.pm/pm-js": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.5",
     "normalize.css": "^8.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.2.0",
-    "web3": "^1.0.0-beta.34"
+    "recompose": "^0.27.1",
+    "web3": "^1.0.0-beta.34",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta",

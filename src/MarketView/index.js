@@ -1,9 +1,30 @@
 import React from 'react'
+import Gnosis from '@gnosis.pm/pm-js'
 
-const MarketView = () => {
+import { compose, lifecycle, withState } from 'recompose'
+
+
+const MarketView = ({ gnosis }) => {
+  console.log(gnosis)
+  if (!gnosis) {
+    return null
+  }
+
   return (
-    <div />
+    <div>{gnosis.web3.eth.accounts[0]}</div>
   )
 }
 
-export default MarketView
+const enhance = compose(
+  withState('gnosis', 'setGnosisInstance'),
+  lifecycle({
+    async componentDidMount() {
+      const gnosisInstance = await Gnosis.create()
+      console.log(gnosisInstance)
+  
+      this.setGnosisInstance(gnosisInstance)
+    }
+  })
+)
+
+export default enhance(MarketView)
