@@ -1,5 +1,5 @@
 import React from 'react'
-import MarketView from 'MarketView'
+import MarketView from 'components/MarketView'
 import classnames from 'classnames/bind'
 
 import style from './style.css'
