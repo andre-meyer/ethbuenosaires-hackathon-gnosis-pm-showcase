@@ -1,11 +1,10 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
+import classnames from 'classnames/bind'
 
-import MarketView from './MarketView'
+import App from './App'
 
+import 'normalize.css'
 
-const RootComponent = () => (
-  <MarketView />
-)
-
-export default hot(RootComponent)
+const RootComponent = () => <App />
+export default hot(module)(RootComponent)

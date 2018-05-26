@@ -1,0 +1,6 @@
+body, html, :global(#root) {
+  height: 100vh;
+}
+
+.app {
+}

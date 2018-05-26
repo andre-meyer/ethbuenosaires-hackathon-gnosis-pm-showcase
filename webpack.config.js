@@ -23,6 +23,21 @@ module.exports = {
         exclude: /(node_modules)/,
         use: 'babel-loader',
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+              importLoaders: 2,
+            },
+          },
+        ]
+      }
     ],
   },
   devServer: {

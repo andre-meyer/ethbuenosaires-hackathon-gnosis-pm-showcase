@@ -2,6 +2,8 @@ import React from 'react'
 
 const MarketView = () => {
   return (
-    <div>bitconneeeeeeeect</div>
+    <div />
   )
 }
+
+export default MarketView
