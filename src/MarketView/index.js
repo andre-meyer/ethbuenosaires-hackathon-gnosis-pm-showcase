@@ -1,8 +1,16 @@
 import React from 'react'
 import Gnosis from '@gnosis.pm/pm-js'
+import {
+  description
+} from '../../scripts/run_gnosis.js'
+import {
+  GNOSIS_OPTIONS,
+  GNOSIS_DESCRIPTION
+} from './config.js'
 
 import { compose, lifecycle, withState } from 'recompose'
 
+console.log(GNOSIS_OPTIONS)
 
 const MarketView = ({ gnosis }) => {
   console.log(gnosis)
