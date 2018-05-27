@@ -18,7 +18,7 @@ import {
 
 const cx = classnames.bind(style)
 
-const MARKET_TEST_ADDRESS = '0xf4294b5783fce0644943444bf3ee6922995f5e95'
+const MARKET_TEST_ADDRESS = '0xdb5fc20105f3ac7a0c8ec35c65801a99cde21d54'
 
 const MarketView = ({
   gnosis,

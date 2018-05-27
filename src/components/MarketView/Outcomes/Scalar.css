@@ -1,0 +1,80 @@
+.scalarOutcome {
+  width: 100%;
+  display: flex;
+}
+
+.slider {
+  width: 100%;
+  position: relative;
+
+  margin: 5px;
+  background-color: rgb(200, 200, 200);
+}
+
+.slider::before, .slider::after, .dot {
+  content: '';
+  background-color: rgb(200, 200, 200);
+  border-radius: 100%;
+  position: absolute;
+  height: 14px;
+  width: 14px;
+}
+
+.slider::before {
+  right: -2px;
+  top: -2px;
+}
+
+.slider::after {
+  left: -2px;
+  top: -2px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  top: -1px;
+  position: absolute;
+  margin-left: -1px;
+  background-color: #00a6c4;
+  z-index: 2;
+}
+
+.dot .label {
+  white-space: nowrap;
+  display: inline-block;
+  background-color: #00a6c4;
+  position: absolute;
+  transform: translateY(-50%) translateX(-50%);
+
+  padding: 4px 2px;
+  top: -100%;
+  margin-top: -10px;
+  left: 50%;
+
+  border-radius: 2px;
+}
+
+.dot .label span {
+  color: white;
+}
+
+.dot .label::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+
+  border-top: 8px solid #00a6c4;
+}
+
+.lowerBound {
+  align-self: flex-start;
+}
+
+.upperBound {
+  align-self: flex-end;
+}

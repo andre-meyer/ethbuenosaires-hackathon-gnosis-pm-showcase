@@ -1,9 +1,15 @@
 import React from 'react'
 
-const Outcomes = ({ market: { type, outcomes = ["SHORT", "LONG"] } }) => (
-  <div>
-    
-  </div>
-)
+import CategoricalOutcome from './Categorical'
+import ScalarOutcome from './Scalar'
+
+const Outcomes = ({ market }) => {
+  const { type, outcomes = ["SHORT", "LONG"] } = market
+  return (
+    <div>
+      {type === 'SCALAR' ? <ScalarOutcome market={market} /> : <CategoricalOutcome market={market} />}
+    </div>
+  )
+}
 
 export default Outcomes
