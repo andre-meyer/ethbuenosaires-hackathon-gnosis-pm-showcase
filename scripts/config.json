@@ -1,0 +1,23 @@
+{
+    "defaultAccount": "",
+    "mnemonic": "",
+    "privKey": "",
+    "localhost": "http://localhost:8545",
+    "LOWERBOUND": "1",
+    "UPPERBOUND": "200",
+    "GNOSIS_OPTIONS": {
+        "ethereum": "https://rinkeby.infura.io/O6AgF19kplltX0VsPbYg",
+        "ipfs": "",
+        "gnosisdb": "https://db.gnosis.pm"
+    },
+    "GNOSIS_DESCRIPTION": {
+        "title": "How many projects will be shipped out of ETHBuenosAires",
+        "description": "A prediction market to determine the amount of completed projects that the 2018 ETHBuenosAires Hackathon will produce",
+        "resolutionDate": "2018-05-27T10:00:00Z",
+        "decimals": 0,
+        "unit": "projects"
+    },
+    "FUNDING": "1e18",
+    "resolveMarketFlag": 0,
+    "EVENT_OUTCOME": 100
+}
