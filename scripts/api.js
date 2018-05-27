@@ -126,7 +126,7 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
      */
     gnosis = gnosisInst
     var netOutcomeTokensSold = market.netOutcomeTokensSold
-    var funding = market.funding
+    var funding = market.funding.toString()
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
@@ -135,6 +135,7 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
     }
     console.info("Calculating LMSR costs")
     localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
+    console.log(localCalculatedCost)
     netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
     var numOutcomeTokensToSell = 2.5e17
     console.info("Calculating LMSR profit")
@@ -150,10 +151,12 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
      */
     console.info("Buying market shares")
     await gnosis.etherToken.deposit(localCalculatedCost)
+    const marketAllowance = await gnosis.etherToken.allowance(gnosis.web3.eth.accounts[0], market.address)
     var actualCost = await gnosis.buyOutcomeTokens({       
         market: market.address,       
         outcomeTokenIndex,       
-        outcomeTokenCount   
+        outcomeTokenCount,
+        cost: localCalculatedCost   
     })
     console.info("Success market shares bought")
     return actualCost
