@@ -155,6 +155,7 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
         outcomeTokenIndex,       
         outcomeTokenCount   
     })
+    console.info("Success market shares bought")
     return actualCost
 }
 
@@ -192,6 +193,7 @@ export const sellOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcom
         outcomeTokenIndex,             
         outcomeTokenCount: numOutcomeTokensToSell
     }) 
+    console.info("Success market shares sold")
     return actualProfit
 }
 
