@@ -25,7 +25,7 @@ const Scalar = ({ market: { upperBound, lowerBound, decimals, unit, outcomes, ne
       <div className={cx('lowerBound')}><Typography component="span">{lower.toString()}</Typography></div>
       <div className={cx('slider')}>
         <div className={cx('dot')} style={{left: `${marginalPriceLong * 100}%`}}>
-          <div className={cx('label')}><Typography component="span">{value.toPrecision(4)} {unit}</Typography></div>
+          <div className={cx('label')}><Typography component="span">{value.toDP(parseInt(decimals, 10)).toString()} {unit}</Typography></div>
         </div>
       </div>
       <div className={cx('upperBound')}><Typography component="span">{upper.toString()}</Typography></div>

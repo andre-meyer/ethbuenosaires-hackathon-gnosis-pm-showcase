@@ -20,7 +20,7 @@ import {
 
 const cx = classnames.bind(style)
 
-const MARKET_TEST_ADDRESS = '0xdb5fc20105f3ac7a0c8ec35c65801a99cde21d54'
+const MARKET_TEST_ADDRESS = '0xca6ee8fee04ba3ddb51ef05626d8d62492363b46'
 
 // var getm = gnosisInst.market
 class MarketView extends React.Component {
@@ -71,7 +71,7 @@ class MarketView extends React.Component {
 
     if (!market) {
       return (
-        <div>
+        <div className={cx('marketView--loading')}>
           <Typography component="h1">Loading your PM experience...</Typography>
           <CircularProgress />
         </div>
@@ -99,7 +99,7 @@ class MarketView extends React.Component {
             <Button 
               variant="raised" 
               color="default"
-              onClick={() => { createMarket() }}>
+              onClick={() => { createMarket(this.props.gnosis) }}>
               2: Create Market
             </Button>
             <Button 
