@@ -20,7 +20,7 @@ import {
 
 const cx = classnames.bind(style)
 
-const MARKET_TEST_ADDRESS = '0xdb5fc20105f3ac7a0c8ec35c65801a99cde21d54'
+const MARKET_TEST_ADDRESS = '0xca6ee8fee04ba3ddb51ef05626d8d62492363b46'
 
 // var getm = gnosisInst.market
 class MarketView extends React.Component {
