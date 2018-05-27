@@ -54,20 +54,15 @@ export const GNOSIS_DESCRIPTION = {
     unit: config.GNOSIS_DESCRIPTION.unit
 }
 
-export const createMarket = async () => {
+export const createMarket = async (gnosisInst) => {
     console.log("creating market")
 
     /* 
      * STEP 1 CONNECT TO GNOSIS
      */
-    try {
-        gnosis = await Gnosis.create(GNOSIS_OPTIONS)   
-        console.info("Connected to Gnosis")
-    } catch(err) {
-        console.error("unable to connect to Gnosis :(")
-        console.error(err)
-    }
-
+    gnosis = gnosisInst
+    console.info("Connected to Gnosis")
+    
     /* 
      * DEFINE EVENT AND UPLOAD TO IPFS
      */
