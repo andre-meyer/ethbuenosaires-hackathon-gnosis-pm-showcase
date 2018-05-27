@@ -1,6 +1,7 @@
 .scalarOutcome {
   width: 100%;
   display: flex;
+  margin-top: 24px;
 }
 
 .slider {
@@ -65,7 +66,7 @@
   width: 0;
   height: 0;
   left: 50%;
-  margin-left: -4px;
+  margin-left: -8px;
   border: solid transparent;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;

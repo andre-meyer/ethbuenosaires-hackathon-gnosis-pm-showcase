@@ -18,8 +18,6 @@ const Scalar = ({ market: { upperBound, lowerBound, decimals, unit, marginalPric
     .times(bounds)
     .add(lowerBound)
 
-  console.log(marginalPriceLong)
-  console.log({left: `${marginalPriceLong * 100}`})
   return (
     <div className={cx('scalarOutcome')}>
       <div className={cx('lowerBound')}><Typography component="span">{lower.toString()}</Typography></div>
