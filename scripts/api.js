@@ -72,7 +72,7 @@ export const createMarket = async () => {
      * DEFINE EVENT AND UPLOAD TO IPFS
      */
     ipfsHash = await gnosis.publishEventDescription(GNOSIS_DESCRIPTION)
-    console.info(`Ipfs hash: https://ipfs.infura.io/api/v0/cat?stream-channels=true&arg=${ipfsHash}`)
+    console.info(`Ipfs hash: ${ipfsHash}`)
 
     /* 
      * CREATE ORACLE FOR EVENT 
@@ -105,11 +105,6 @@ export const createMarket = async () => {
     await gnosis.etherToken.approve(market.address, FUNDING) 
     await market.fund(FUNDING)
 
-    const filePath = path.join(__dirname, "currentMarket", "market")
-    const stream = fs.createWriteStream(filePath, {flags: 'w'});
-    stream.write(market.address + '\n');
-    stream.end();
-
     console.info("Success! Your market has been created")
 }
 
@@ -120,7 +115,11 @@ export const closeMarket = async () => {
         */
     var oracleIsSet = await oracle.isSet()
     if (oracleIsSet) {
-        await oracle.setOutcome(parseInt(config.EVENT_OUTCOME, 10))
+        try {
+            await oracle.setOutcome(parseInt(config.EVENT_OUTCOME, 10))
+        } catch (err) {
+            console.error(err)
+        }
     }
 }
 
@@ -132,9 +131,10 @@ export const buyOutcomes = async () => {
     var outcomeTokenIndex = 0 
     var outcomeTokenCount = 2.5e17
     var netOutcomeTokensSold = [0, 0]
+    var funding = 1e17
     var lmsrData = {
         netOutcomeTokensSold,
-        funding: FUNDING,
+        funding,
         outcomeTokenIndex,
         outcomeTokenCount,
     }
@@ -143,7 +143,7 @@ export const buyOutcomes = async () => {
     var numOutcomeTokensToSell = 2.5e17
     localCalculatedProfit = await Gnosis.calcLMSRProfit({      
         netOutcomeTokensSold,      
-        funding: FUNDING,     
+        funding,     
         outcomeTokenIndex,      
         outcomeTokenCount: numOutcomeTokensToSell,
     })
@@ -167,10 +167,11 @@ export const sellOutcomes = async () => {
      */
     var outcomeTokenIndex = 0 
     var outcomeTokenCount = 2.5e17
+    var funding = 1e17
     var netOutcomeTokensSold = [0, 0]
     var lmsrData = {
         netOutcomeTokensSold,
-        FUNDING,
+        funding,
         outcomeTokenIndex,
         outcomeTokenCount,
     }
@@ -179,7 +180,7 @@ export const sellOutcomes = async () => {
     var numOutcomeTokensToSell = 2.5e17
     localCalculatedProfit = await Gnosis.calcLMSRProfit({      
         netOutcomeTokensSold,      
-        FUNDING,     
+        funding,     
         outcomeTokenIndex,      
         outcomeTokenCount: numOutcomeTokensToSell,
     })

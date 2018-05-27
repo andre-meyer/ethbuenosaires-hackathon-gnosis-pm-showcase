@@ -26,7 +26,7 @@ Edit `config.json` in scripts to fit your prediction needs!
 We've broken down the process of utilizing pm-js library into 5 easy steps.
 For full interactivity, download [MetaMask](https://metamask.io/)
 
-1. Connect To Provider: Initialize your connection to an ethereum provider (if you are using Metamask, this will be injected directly)
+1. Connect To Provider: Initialize your connection to an ethereum provider (if you are using Metamask, this will be injected directly so move on to Step 2)
 2. Create Market: This instantiates a new gnosis object, publishes your event to ipfs, creates a matching centralized oracle, and finally creates and funds a market. Be patient after clicking this, you can check your progress in the browser console.
 3. Buy Outcomes: This buys a fixed amount of outcome tokens from your market.
 4. Sell Outcomes: Sells what you just bought.

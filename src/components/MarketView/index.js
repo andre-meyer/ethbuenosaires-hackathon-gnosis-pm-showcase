@@ -36,6 +36,11 @@ const MarketView = ({
   return (
     <div className={cx('marketView')}>
       <Card>
+        <CardHeader title={"Roll Your Own PM"} subheader={
+          <Typography component="span">
+            Unlock your Metamask and open your console!
+          </Typography>
+          } />
         <CardContent>
           <Button 
             variant="raised" 
@@ -48,23 +53,7 @@ const MarketView = ({
             color="default"
             onClick={() => { createMarket() }}>
             2: Create Market
-            </Button>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader title={market.title} subheader={
-          <Typography component="span">
-            Will resolve in {timeUntil} – {resolutionDate.format('LLL')}
-          </Typography>
-        } />
-        <CardContent>
-          <Typography component="p">
-            {market.description}
-          </Typography>
-          <Typography component="p">
-          </Typography>
-
-          <Outcomes market={market} />
+          </Button>
           <Button 
             variant="raised" 
             color="default"
@@ -83,6 +72,22 @@ const MarketView = ({
             onClick={() => { closeMarket() }}>
             5: Close Market
           </Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader title={market.title} subheader={
+          <Typography component="span">
+            Will resolve in {timeUntil} – {resolutionDate.format('LLL')}
+          </Typography>
+        } />
+        <CardContent>
+          <Typography component="p">
+            {market.description}
+          </Typography>
+          <Typography component="p">
+          </Typography>
+
+          <Outcomes market={market} />
         </CardContent>
       </Card>
     </div>
