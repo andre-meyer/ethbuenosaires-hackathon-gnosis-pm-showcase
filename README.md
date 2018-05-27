@@ -46,6 +46,6 @@ npm run gnosis
 ```
 
 #### Completed at ETHBuenosAires 2018 By:
-[Andre Meyer](@andre-meyer)
+Andre Meyer @andre-meyer
 
-[Collin Chin](@collinc97)
+Collin Chin @collinc97
