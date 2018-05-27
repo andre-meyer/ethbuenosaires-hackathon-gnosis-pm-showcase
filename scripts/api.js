@@ -54,20 +54,15 @@ export const GNOSIS_DESCRIPTION = {
     unit: config.GNOSIS_DESCRIPTION.unit
 }
 
-export const createMarket = async () => {
+export const createMarket = async (gnosisInst) => {
     console.log("creating market")
 
     /* 
      * STEP 1 CONNECT TO GNOSIS
      */
-    try {
-        gnosis = await Gnosis.create(GNOSIS_OPTIONS)   
-        console.info("Connected to Gnosis")
-    } catch(err) {
-        console.error("unable to connect to Gnosis :(")
-        console.error(err)
-    }
-
+    gnosis = gnosisInst
+    console.info("Connected to Gnosis")
+    
     /* 
      * DEFINE EVENT AND UPLOAD TO IPFS
      */
@@ -117,21 +112,20 @@ export const closeMarket = async () => {
     if (oracleIsSet) {
         try {
             await oracle.setOutcome(parseInt(config.EVENT_OUTCOME, 10))
+            console.info("Market closed")
         } catch (err) {
             console.error(err)
         }
     }
 }
 
-export const buyOutcomes = async () => {
+export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcomeTokenCount) => {
     /*
      * STEP 3 COMPARE LMSR ESTIMATIONS
-     * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var netOutcomeTokensSold = [0, 0]
-    var funding = 1e17
+    gnosis = gnosisInst
+    var netOutcomeTokensSold = market.netOutcomeTokensSold
+    var funding = market.funding
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
@@ -163,15 +157,14 @@ export const buyOutcomes = async () => {
     return actualCost
 }
 
-export const sellOutcomes = async () => {
+export const sellOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcomeTokenCount) => {
     /*
      * COMPARE LMSR ESTIMATIONS
      * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var funding = 1e17
-    var netOutcomeTokensSold = [0, 0]
+    gnosis = gnosisInst
+    var netOutcomeTokensSold = market.netOutcomeTokensSold
+    var funding = market.funding
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
