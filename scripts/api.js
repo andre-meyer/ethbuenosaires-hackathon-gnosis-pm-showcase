@@ -1,6 +1,7 @@
 import Gnosis from '@gnosis.pm/pm-js'
 import HDWalletProvider from "truffle-hdwallet-provider"
 import config from './config.json'
+import Decimal from 'decimal.js'
 
 let gnosis
 let ipfsHash
@@ -10,7 +11,7 @@ let market
 let localCalculatedCost
 let localCalculatedProfit
 
-const FUNDING = config.FUNDING
+const FUNDING = Decimal(config.FUNDING).toString()
 
 const LOWERBOUND = config.LOWERBOUND
 const UPPERBOUND = config.UPPERBOUND
