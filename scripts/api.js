@@ -119,14 +119,13 @@ export const closeMarket = async () => {
     }
 }
 
-export const buyOutcomes = async (funding) => {
+export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcomeTokenCount) => {
     /*
      * STEP 3 COMPARE LMSR ESTIMATIONS
-     * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var netOutcomeTokensSold = [0, 0]
+    gnosis = gnosisInst
+    var netOutcomeTokensSold = market.netOutcomeTokensSold
+    var funding = market.funding
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
@@ -158,14 +157,14 @@ export const buyOutcomes = async (funding) => {
     return actualCost
 }
 
-export const sellOutcomes = async (funding) => {
+export const sellOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcomeTokenCount) => {
     /*
      * COMPARE LMSR ESTIMATIONS
      * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var netOutcomeTokensSold = [0, 0]
+    gnosis = gnosisInst
+    var netOutcomeTokensSold = market.netOutcomeTokensSold
+    var funding = market.funding
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
