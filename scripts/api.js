@@ -101,6 +101,7 @@ export const createMarket = async (gnosisInst) => {
     await market.fund(FUNDING)
 
     console.info("Success! Your market has been created")
+    return market.address
 }
 
 export const closeMarket = async () => {
@@ -150,7 +151,7 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
     console.info("Buying market shares")
     await gnosis.etherToken.deposit(localCalculatedCost)
     var actualCost = await gnosis.buyOutcomeTokens({       
-        market,       
+        market: market.address,       
         outcomeTokenIndex,       
         outcomeTokenCount   
     })
@@ -160,7 +161,6 @@ export const buyOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcome
 export const sellOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcomeTokenCount) => {
     /*
      * COMPARE LMSR ESTIMATIONS
-     * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
     gnosis = gnosisInst
     var netOutcomeTokensSold = market.netOutcomeTokensSold
@@ -188,7 +188,7 @@ export const sellOutcomes = async (gnosisInst, market, outcomeTokenIndex, outcom
      */
     console.info("Selling market shares")
     var actualProfit = await gnosis.sellOutcomeTokens({      
-        market,       
+        market: market.address,       
         outcomeTokenIndex,             
         outcomeTokenCount: numOutcomeTokensToSell
     }) 
