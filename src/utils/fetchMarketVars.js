@@ -5,7 +5,7 @@ const fetchMarketVars = async (gnosisInstance, contracts) => {
   const type = contracts.event instanceof gnosisInstance.contracts.CategoricalEvent ? "CATEGORICAL" : "SCALAR"
 
   const funding = await contracts.market.funding()
-  const netOutcomeTokensSold = await Promise.all(contracts.outcomeTokens.map(async (_, i) => (await contracts.market.netOutcomeTokensSold(i)).toNumber()))
+  const netOutcomeTokensSold = await Promise.all(contracts.outcomeTokens.map(async (_, i) => (await contracts.market.netOutcomeTokensSold(i)).toString()))
 
   const market = {
     address: contracts.market.address,

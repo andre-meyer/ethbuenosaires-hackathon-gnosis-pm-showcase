@@ -32,6 +32,7 @@ class MarketView extends React.Component {
     this.state = {
       market: undefined,
       buttonBuyState: 'READY',
+      buttonSellState: 'READY',
     }
   }
 
@@ -44,6 +45,8 @@ class MarketView extends React.Component {
 
   async handleBuyShares(outcomeTokenIndex) {
     const amount = prompt('Amount to buy in Eth?')
+    if (!amount) return
+
     const outcomeTokenCount = Decimal(parseInt(amount, 10).toString()).mul(1e19).toString()
 
     const prevNetOutcomeTokensSold = this.state.market.netOutcomeTokensSold
@@ -63,6 +66,31 @@ class MarketView extends React.Component {
       console.error(e)
     }
     this.setState({ buttonBuyState: 'READY' })
+  }
+
+  async handleSellShares(outcomeTokenIndex) {
+    const amount = prompt('Amount to sell in Eth?')
+    if (!amount) return
+
+    const outcomeTokenCount = Decimal(parseInt(amount, 10).toString()).mul(1e19).toString()
+
+    const prevNetOutcomeTokensSold = this.state.market.netOutcomeTokensSold
+
+    this.setState({ buttonSellState: 'LOADING' })
+    try {
+      await sellOutcomes(this.props.gnosis, this.state.market, outcomeTokenIndex, outcomeTokenCount)
+      prevNetOutcomeTokensSold[outcomeTokenIndex] = Decimal(prevNetOutcomeTokensSold[outcomeTokenIndex]).sub(outcomeTokenCount).toString()
+
+      this.setState({ 
+        market: {
+          ...this.state.market,
+          netOutcomeTokensSold: prevNetOutcomeTokensSold
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+    this.setState({ buttonSellState: 'READY' })
   }
 
   render() {
@@ -93,20 +121,14 @@ class MarketView extends React.Component {
             <Button 
               variant="raised" 
               color="default"
-              onClick={() => { initGnosisConnection() }}>
-              1: Connect To Provider
-              </Button>
-            <Button 
-              variant="raised" 
-              color="default"
               onClick={() => { createMarket(this.props.gnosis) }}>
-              2: Create Market
+              1: Create Market
             </Button>
             <Button 
               variant="raised" 
               color="default"
               onClick={() => this.handleBuyShares(0)}>
-              {this.state.buttonBuyState === 'READY' ? '3: Buy Short' : (
+              {this.state.buttonBuyState === 'READY' ? '2a: Buy Short' : (
                 <CircularProgress size={18} />
               )}
             </Button>
@@ -114,21 +136,31 @@ class MarketView extends React.Component {
               variant="raised" 
               color="default"
               onClick={() => this.handleBuyShares(1)}>
-              {this.state.buttonBuyState === 'READY' ? '3: Buy Long' : (
+              {this.state.buttonBuyState === 'READY' ? '2b: Buy Long' : (
                 <CircularProgress size={18} />
               )}
             </Button>
             <Button 
               variant="raised" 
               color="default"
-              onClick={() => { sellOutcomes() }}>
-              4: Sell Shares
+              onClick={() => this.handleSellShares(0)}>
+              {this.state.buttonSellState === 'READY' ? '3a: Sell Short' : (
+                <CircularProgress size={18} />
+              )}
+            </Button>
+            <Button 
+              variant="raised" 
+              color="default"
+              onClick={() => this.handleSellShares(1)}>
+              {this.state.buttonSellState === 'READY' ? '3a: Sell Long' : (
+                <CircularProgress size={18} />
+              )}
             </Button>
             <Button 
               variant="raised" 
               color="default"
               onClick={() => { closeMarket() }}>
-              5: Close Market
+              4: Close Market
             </Button>
           </CardContent>
         </Card>
