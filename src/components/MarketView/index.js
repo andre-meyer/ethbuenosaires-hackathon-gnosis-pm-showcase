@@ -20,8 +20,6 @@ import {
 
 const cx = classnames.bind(style)
 
-const MARKET_TEST_ADDRESS = '0xca6ee8fee04ba3ddb51ef05626d8d62492363b46'
-
 // var getm = gnosisInst.market
 class MarketView extends React.Component {
   constructor() {
@@ -37,7 +35,8 @@ class MarketView extends React.Component {
   }
 
   async componentDidMount() {
-    const contracts = await collectAllContractsForMarket(this.props.gnosis, MARKET_TEST_ADDRESS)
+    const marketAddress = window.location.hash || '0xca6ee8fee04ba3ddb51ef05626d8d62492363b46'
+    const contracts = await collectAllContractsForMarket(this.props.gnosis, marketAddress)
     const market = await fetchMarketVars(this.props.gnosis, contracts)
 
     this.setState({ market })
@@ -114,7 +113,7 @@ class MarketView extends React.Component {
         <Card>
           <CardHeader title={"Roll Your Own PM"} subheader={
             <Typography component="span">
-              Unlock your Metamask and open your console!
+              Unlock your Metamask and connect to Rinkeby!
             </Typography>
             } />
           <CardContent>

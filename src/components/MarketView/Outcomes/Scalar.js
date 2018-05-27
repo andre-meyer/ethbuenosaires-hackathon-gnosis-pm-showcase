@@ -9,8 +9,7 @@ import { Typography } from '@material-ui/core';
 const cx = classnames.bind(style)
 
 const Scalar = ({ market: { upperBound, lowerBound, decimals, unit, outcomes, netOutcomeTokensSold, funding } }) => {
-  const marginalPrices = outcomes.map((outcomeToken, outcomeTokenIndex) => calcLMSRMarginalPrice(netOutcomeTokensSold, funding, outcomeTokenIndex).toNumber())
-  console.log(netOutcomeTokensSold, marginalPrices)
+  const marginalPrices = outcomes.map((outcomeToken, outcomeTokenIndex) => calcLMSRMarginalPrice(netOutcomeTokensSold, funding, outcomeTokenIndex).toDP(30).toNumber())
   const upper = Decimal(upperBound).div(10 ** decimals)
   const lower = Decimal(lowerBound).div(10 ** decimals)
 
