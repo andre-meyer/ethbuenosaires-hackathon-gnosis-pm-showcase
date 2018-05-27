@@ -5,7 +5,6 @@ Have you ever gazed at the glory of [Gnosis Beta](https://mainnet.gnosis.pm/) an
 Well fret no more. Now it's easier than ever before to roll out your own prediction market application with the help of Gnosis [pm-js](https://github.com/gnosis/pm-js) and [pm-contracts](https://github.com/gnosis/pm-contracts). We've showcased just how easy it is with this simple boilerplate built with React and Javascript.
 
 ## Getting Started
------
 ### Install requirements with npm
 ```
 npm install
@@ -17,12 +16,10 @@ npm start
 
 
 ## Configuration 
------
 Edit `config.json` in scripts to fit your prediction needs!
 
 
 ## STEPS
------
 We've broken down the process of utilizing pm-js library into 5 easy steps.
 For full interactivity, download [MetaMask](https://metamask.io/)
 
@@ -33,7 +30,6 @@ For full interactivity, download [MetaMask](https://metamask.io/)
 5. Close Market: After the resolution date, you can close your market.
 
 ## Local Setup
------
 To migrate the pm-contracts onto a local ganache instance with:
 ```
 npm run ganache

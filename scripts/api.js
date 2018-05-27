@@ -117,13 +117,14 @@ export const closeMarket = async () => {
     if (oracleIsSet) {
         try {
             await oracle.setOutcome(parseInt(config.EVENT_OUTCOME, 10))
+            console.info("Market closed")
         } catch (err) {
             console.error(err)
         }
     }
 }
 
-export const buyOutcomes = async () => {
+export const buyOutcomes = async (funding) => {
     /*
      * STEP 3 COMPARE LMSR ESTIMATIONS
      * CHANGE VARIABLES BELOW BEFORE PUBLISH
@@ -131,7 +132,6 @@ export const buyOutcomes = async () => {
     var outcomeTokenIndex = 0 
     var outcomeTokenCount = 2.5e17
     var netOutcomeTokensSold = [0, 0]
-    var funding = 1e17
     var lmsrData = {
         netOutcomeTokensSold,
         funding,
@@ -163,14 +163,13 @@ export const buyOutcomes = async () => {
     return actualCost
 }
 
-export const sellOutcomes = async () => {
+export const sellOutcomes = async (funding) => {
     /*
      * COMPARE LMSR ESTIMATIONS
      * CHANGE VARIABLES BELOW BEFORE PUBLISH
      */
     var outcomeTokenIndex = 0 
     var outcomeTokenCount = 2.5e17
-    var funding = 1e17
     var netOutcomeTokensSold = [0, 0]
     var lmsrData = {
         netOutcomeTokensSold,
