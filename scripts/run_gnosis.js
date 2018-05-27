@@ -103,7 +103,8 @@ async function runGnosis() {
             await gnosis.etherToken.deposit({value: FUNDING})
             await gnosis.etherToken.approve(market.address, FUNDING) 
             await market.fund(FUNDING)
-            
+
+            console.info("Success! Your market has been created")
             break;
         case 1:
             console.log("closing market")
@@ -118,76 +119,6 @@ async function runGnosis() {
     }
 }
 
-async function buyOutcomes() {
-    /*
-     * STEP 6 COMPARE LMSR ESTIMATIONS
-     * CHANGE VARIABLES BELOW BEFORE PUBLISH
-     */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var netOutcomeTokensSold = [0, 0]
-    var lmsrData = {
-        netOutcomeTokensSold,
-        FUNDING,
-        outcomeTokenIndex,
-        outcomeTokenCount,
-    }
-    localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
-    netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
-    var numOutcomeTokensToSell = 2.5e17
-    localCalculatedProfit = await Gnosis.calcLMSRProfit({      
-        netOutcomeTokensSold,      
-        FUNDING,     
-        outcomeTokenIndex,      
-        outcomeTokenCount: numOutcomeTokensToSell,
-    })
-
-    /*
-     * STEP 7 BUY AND SELL MARKET SHARES
-     */
-    await gnosis.etherToken.deposit(localCalculatedCost)
-    var actualCost = await gnosis.buyOutcomeTokens({       
-        market,       
-        outcomeTokenIndex,       
-        outcomeTokenCount   
-    })
-    return actualCost
-
-}
-
-async function sellOutcomes() {
-    /*
-     * STEP 6 COMPARE LMSR ESTIMATIONS
-     * CHANGE VARIABLES BELOW BEFORE PUBLISH
-     */
-    var outcomeTokenIndex = 0 
-    var outcomeTokenCount = 2.5e17
-    var netOutcomeTokensSold = [0, 0]
-    var lmsrData = {
-        netOutcomeTokensSold,
-        FUNDING,
-        outcomeTokenIndex,
-        outcomeTokenCount,
-    }
-    localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
-    netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
-    var numOutcomeTokensToSell = 2.5e17
-    localCalculatedProfit = await Gnosis.calcLMSRProfit({      
-        netOutcomeTokensSold,      
-        FUNDING,     
-        outcomeTokenIndex,      
-        outcomeTokenCount: numOutcomeTokensToSell,
-    })
-
-    /*
-     * STEP 7 BUY AND SELL MARKET SHARES
-     */
-    var actualProfit = await gnosis.sellOutcomeTokens({      
-        market,       
-        outcomeTokenIndex,             
-        outcomeTokenCount: numOutcomeTokensToSell
-    }) 
-    return actualProfit
-}
-
 runGnosis()
+
+exports.market = market

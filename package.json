@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --host 0.0.0.0"
+    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --host 0.0.0.0",
+    "install-contracts": "cd ./node_modules/@gnosis.pm/pm-js && npm install",
+    "ganache-cli": "ganache-cli -d",
+    "migrate": "cd ./node_modules/@gnosis.pm/pm-js/node_modules/@gnosis.pm/pm-contracts && npm run migrate",
+    "gnosis": "node ./scripts/run_gnosis.js"
   },
   "repository": {
     "type": "git",
@@ -25,14 +29,16 @@
     "bs58": "^4.0.1",
     "classnames": "^2.2.5",
     "decimal.js": "^10.0.1",
+    "file-system": "^2.2.2",
+    "ganache-cli": "^6.1.0",
     "moment": "^2.22.1",
     "multi-hash": "^0.1.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.2.0",
     "recompose": "^0.27.1",
-    "truffle-contract": "^3.0.5",
     "scrypt": "^6.0.3",
+    "truffle-contract": "^3.0.5",
     "truffle-hdwallet-provider": "0.0.5",
     "truffle-hdwallet-provider-privkey": "^0.2.0",
     "web3": "^1.0.0-beta.34",

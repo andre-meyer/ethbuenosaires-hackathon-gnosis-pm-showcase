@@ -9,17 +9,19 @@ import withGnosis from 'components/withGnosis'
 import collectAllContractsForMarket from 'utils/collectAllContractsForMarket'
 import fetchOutcomeTokenHolders from 'utils/fetchOutcomeTokenHolders'
 import fetchMarketVars from 'utils/fetchMarketVars'
+import {initGnosisConnection, createMarket, closeMarket, buyOutcomes, sellOutcomes} from '../../../scripts/api.js'
 
 import style from './style.css'
 
 import {
-  Card, CardContent, CardHeader, Typography
+  Card, CardContent, CardHeader, Typography, Button
 } from '@material-ui/core'
 
 const cx = classnames.bind(style)
 
 const MARKET_TEST_ADDRESS = '0xdb5fc20105f3ac7a0c8ec35c65801a99cde21d54'
 
+// var getm = gnosisInst.market
 const MarketView = ({
   gnosis,
   market,
@@ -34,6 +36,22 @@ const MarketView = ({
   return (
     <div className={cx('marketView')}>
       <Card>
+        <CardContent>
+          <Button 
+            variant="raised" 
+            color="default"
+            onClick={() => { initGnosisConnection() }}>
+            1: Connect To Gnosis
+            </Button>
+          <Button 
+            variant="raised" 
+            color="default"
+            onClick={() => { createMarket() }}>
+            2: Create Market
+            </Button>
+        </CardContent>
+      </Card>
+      <Card>
         <CardHeader title={market.title} subheader={
           <Typography component="span">
             Will resolve in {timeUntil} – {resolutionDate.format('LLL')}
@@ -47,6 +65,24 @@ const MarketView = ({
           </Typography>
 
           <Outcomes market={market} />
+          <Button 
+            variant="raised" 
+            color="default"
+            onClick={() => { buyOutcomes() }}>
+            3: Buy Shares
+          </Button>
+          <Button 
+            variant="raised" 
+            color="default"
+            onClick={() => { sellOutcomes() }}>
+            4: Sell Shares
+          </Button>
+          <Button 
+            variant="raised" 
+            color="default"
+            onClick={() => { closeMarket() }}>
+            5: Close Market
+          </Button>
         </CardContent>
       </Card>
     </div>
