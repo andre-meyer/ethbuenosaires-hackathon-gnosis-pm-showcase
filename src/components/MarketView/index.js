@@ -41,7 +41,7 @@ const MarketView = ({
             variant="raised" 
             color="default"
             onClick={() => { initGnosisConnection() }}>
-            1: Connect To Gnosis
+            1: Connect To Provider
             </Button>
           <Button 
             variant="raised" 
