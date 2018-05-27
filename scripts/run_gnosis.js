@@ -1,5 +1,4 @@
 var Gnosis = require('@gnosis.pm/pm-js')
-// var HDWalletProvider = require("truffle-hdwallet-provider-privkey");
 var HDWalletProvider = require("truffle-hdwallet-provider")
 var config = require('./config.json')
 
@@ -11,16 +10,35 @@ var market
 var localCalculatedCost
 var localCalculatedProfit
 
+const FUNDING = config.FUNDING
+
 const LOWERBOUND = config.LOWERBOUND
 const UPPERBOUND = config.UPPERBOUND
+var provider
+var defaultAccount
 
-const provider = new HDWalletProvider(config.mnemonid, config.GNOSIS_OPTIONS.ethereum);
+switch(config.testingFlag) {
+    case 1: 
+        console.info("initializing localhost provider")
+        provider = new HDWalletProvider(config.testMnemonic, config.localhost);
+        defaultAccount = config.testDefaultAccount
+        break;
+    case 0:
+        console.info("initializing ethereum provider")
+        if (config.mnemonic != "") {
+            provider = new HDWalletProvider(config.mnemonic, config.GNOSIS_OPTIONS.ethereum);
+            defaultAcount = config.defaultAccount
+        } else {
+            console.error("mnemonic is null, please edit config.json")
+        }
+        break;
+}
 
 const GNOSIS_OPTIONS = {
     ethereum: provider,
     ipfs: config.ipfs,
     gnosisdb: config.gnosisdb,
-    defaultAccount: config.defaultAccount
+    defaultAccount: defaultAccount
 }
 
 const GNOSIS_DESCRIPTION = {
@@ -39,7 +57,7 @@ async function runGnosis() {
             console.log("creating market")
 
             /* 
-             * STEP 1 CONNECT TO GNOSIS AND ADD ACCOUNT
+             * STEP 1 CONNECT TO GNOSIS
              */
             try {
                 gnosis = await Gnosis.create(GNOSIS_OPTIONS)   
@@ -82,10 +100,10 @@ async function runGnosis() {
                 fee: 0, // 0%
             })
             console.info(`Market created with address ${market.address}`)
-            await gnosis.etherToken.deposit({value: config.FUNDING})
-            await gnosis.etherToken.approve(market.address, config.FUNDING) 
-            await market.fund(config.FUNDING)
-
+            await gnosis.etherToken.deposit({value: FUNDING})
+            await gnosis.etherToken.approve(market.address, FUNDING) 
+            await market.fund(FUNDING)
+            
             break;
         case 1:
             console.log("closing market")
@@ -98,6 +116,78 @@ async function runGnosis() {
             }
             break;
     }
+}
+
+async function buyOutcomes() {
+    /*
+     * STEP 6 COMPARE LMSR ESTIMATIONS
+     * CHANGE VARIABLES BELOW BEFORE PUBLISH
+     */
+    var outcomeTokenIndex = 0 
+    var outcomeTokenCount = 2.5e17
+    var netOutcomeTokensSold = [0, 0]
+    var lmsrData = {
+        netOutcomeTokensSold,
+        FUNDING,
+        outcomeTokenIndex,
+        outcomeTokenCount,
+    }
+    localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
+    netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
+    var numOutcomeTokensToSell = 2.5e17
+    localCalculatedProfit = await Gnosis.calcLMSRProfit({      
+        netOutcomeTokensSold,      
+        FUNDING,     
+        outcomeTokenIndex,      
+        outcomeTokenCount: numOutcomeTokensToSell,
+    })
+
+    /*
+     * STEP 7 BUY AND SELL MARKET SHARES
+     */
+    await gnosis.etherToken.deposit(localCalculatedCost)
+    var actualCost = await gnosis.buyOutcomeTokens({       
+        market,       
+        outcomeTokenIndex,       
+        outcomeTokenCount   
+    })
+    return actualCost
+
+}
+
+async function sellOutcomes() {
+    /*
+     * STEP 6 COMPARE LMSR ESTIMATIONS
+     * CHANGE VARIABLES BELOW BEFORE PUBLISH
+     */
+    var outcomeTokenIndex = 0 
+    var outcomeTokenCount = 2.5e17
+    var netOutcomeTokensSold = [0, 0]
+    var lmsrData = {
+        netOutcomeTokensSold,
+        FUNDING,
+        outcomeTokenIndex,
+        outcomeTokenCount,
+    }
+    localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
+    netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
+    var numOutcomeTokensToSell = 2.5e17
+    localCalculatedProfit = await Gnosis.calcLMSRProfit({      
+        netOutcomeTokensSold,      
+        FUNDING,     
+        outcomeTokenIndex,      
+        outcomeTokenCount: numOutcomeTokensToSell,
+    })
+
+    /*
+     * STEP 7 BUY AND SELL MARKET SHARES
+     */
+    var actualProfit = await gnosis.sellOutcomeTokens({      
+        market,       
+        outcomeTokenIndex,             
+        outcomeTokenCount: numOutcomeTokensToSell
+    }) 
+    return actualProfit
 }
 
 runGnosis()

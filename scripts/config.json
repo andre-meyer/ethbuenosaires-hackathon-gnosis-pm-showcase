@@ -1,7 +1,11 @@
 {
-    "defaultAccount": "",
+    "defaultAccount":"",
     "mnemonic": "",
-    "privKey": "",
+    "privKey": "DONT COMMIT ME!!!",
+    "testingFlag": 1,
+    "testDefaultAccount": "0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1",
+    "testMnemonic": "myth like bonus scare over problem client lizard pioneer submit female collect",
+    "testPrivKey": "4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d",
     "localhost": "http://localhost:8545",
     "LOWERBOUND": "1",
     "UPPERBOUND": "200",
@@ -11,13 +15,13 @@
         "gnosisdb": "https://db.gnosis.pm"
     },
     "GNOSIS_DESCRIPTION": {
-        "title": "How many projects will be shipped out of ETHBuenosAires",
-        "description": "A prediction market to determine the amount of completed projects that the 2018 ETHBuenosAires Hackathon will produce",
+        "title": "How many projects will be shipped out of ETHBuenosAires?",
+        "description": "A prediction market to determine the number of completed projects produced at the 2018 ETHBuenosAires Hackathon",
         "resolutionDate": "2018-05-27T10:00:00Z",
         "decimals": 0,
         "unit": "projects"
     },
-    "FUNDING": "1e18",
+    "FUNDING": "1e17",
     "resolveMarketFlag": 0,
     "EVENT_OUTCOME": 100
 }
