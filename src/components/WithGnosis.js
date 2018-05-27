@@ -13,7 +13,8 @@ const withGnosis = (options) => (Component) =>
 
     async componentDidMount() {
       const gnosisInstance = await Gnosis.create(options)
-  
+ 
+      console.log(gnosisInstance)
       this.setState({ gnosis: gnosisInstance })
     }
   

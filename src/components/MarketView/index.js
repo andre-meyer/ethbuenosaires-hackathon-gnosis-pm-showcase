@@ -42,9 +42,9 @@ class MarketView extends React.Component {
     this.setState({ market })
   }
 
-  async handleBuyShares() {
-    const outcomeTokenIndex = 1
-    const outcomeTokenCount = 2.5e17
+  async handleBuyShares(outcomeTokenIndex) {
+    const amount = prompt('Amount to buy in Eth?')
+    const outcomeTokenCount = Decimal(parseInt(amount, 10).toString()).mul(1e19).toString()
 
     const prevNetOutcomeTokensSold = this.state.market.netOutcomeTokensSold
 
@@ -105,8 +105,16 @@ class MarketView extends React.Component {
             <Button 
               variant="raised" 
               color="default"
-              onClick={this.handleBuyShares}>
-              {this.state.buttonBuyState === 'READY' ? '3: Buy Shares' : (
+              onClick={() => this.handleBuyShares(0)}>
+              {this.state.buttonBuyState === 'READY' ? '3: Buy Short' : (
+                <CircularProgress size={18} />
+              )}
+            </Button>
+            <Button 
+              variant="raised" 
+              color="default"
+              onClick={() => this.handleBuyShares(1)}>
+              {this.state.buttonBuyState === 'READY' ? '3: Buy Long' : (
                 <CircularProgress size={18} />
               )}
             </Button>

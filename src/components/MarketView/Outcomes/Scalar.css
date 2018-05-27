@@ -12,6 +12,14 @@
   background-color: rgb(200, 200, 200);
 }
 
+.sliderWrapper {
+  left: 0;
+  right: 10px;
+  
+  height: 100%;
+  position: absolute;
+}
+
 .slider::before, .slider::after, .dot {
   content: '';
   background-color: rgb(200, 200, 200);
@@ -39,6 +47,8 @@
   margin-left: -1px;
   background-color: #00a6c4;
   z-index: 2;
+  transition: left 1s ease;
+  -webkit-transition: left 1s ease;
 }
 
 .dot .label {
@@ -65,7 +75,6 @@
   position: absolute;
   width: 0;
   height: 0;
-  transition: left 1s ease;
   left: 50%;
   margin-left: -8px;
   border: solid transparent;
