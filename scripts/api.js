@@ -137,9 +137,11 @@ export const buyOutcomes = async () => {
         outcomeTokenIndex,
         outcomeTokenCount,
     }
+    console.info("Calculating LMSR costs")
     localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
     netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
     var numOutcomeTokensToSell = 2.5e17
+    console.info("Calculating LMSR profit")
     localCalculatedProfit = await Gnosis.calcLMSRProfit({      
         netOutcomeTokensSold,      
         funding,     
@@ -150,6 +152,7 @@ export const buyOutcomes = async () => {
     /*
      *  STEP 4 BUY MARKET SHARES
      */
+    console.info("Buying market shares")
     await gnosis.etherToken.deposit(localCalculatedCost)
     var actualCost = await gnosis.buyOutcomeTokens({       
         market,       
@@ -174,9 +177,11 @@ export const sellOutcomes = async () => {
         outcomeTokenIndex,
         outcomeTokenCount,
     }
+    console.info("Calculating LMSR costs")
     localCalculatedCost = await Gnosis.calcLMSRCost(lmsrData)
     netOutcomeTokensSold[outcomeTokenIndex] += outcomeTokenCount
     var numOutcomeTokensToSell = 2.5e17
+    console.info("Calculating LMSR profits")
     localCalculatedProfit = await Gnosis.calcLMSRProfit({      
         netOutcomeTokensSold,      
         funding,     
@@ -187,6 +192,7 @@ export const sellOutcomes = async () => {
     /*
      * STEP 5 SELL MARKET SHARES
      */
+    console.info("Selling market shares")
     var actualProfit = await gnosis.sellOutcomeTokens({      
         market,       
         outcomeTokenIndex,             
