@@ -15,7 +15,7 @@ import {initGnosisConnection, createMarket, closeMarket, buyOutcomes, sellOutcom
 import style from './style.css'
 
 import {
-  Card, CardContent, CardHeader, CardActions, Typography, Button, IconButton
+  Card, CardContent, CardHeader, CardActions, Typography, Button, IconButton, CircularProgress
 } from '@material-ui/core'
 
 const cx = classnames.bind(style)
@@ -29,7 +29,10 @@ class MarketView extends React.Component {
 
     this.handleBuyShares = this.handleBuyShares.bind(this)
 
-    this.state = {}
+    this.state = {
+      market: undefined,
+      buttonBuyState: 'READY',
+    }
   }
 
   async componentDidMount() {
@@ -40,16 +43,26 @@ class MarketView extends React.Component {
   }
 
   async handleBuyShares() {
-    const outcomeTokenIndex = 0
+    const outcomeTokenIndex = 1
     const outcomeTokenCount = 2.5e17
 
     const prevNetOutcomeTokensSold = this.state.market.netOutcomeTokensSold
 
-    await buyOutcomes(this.props.gnosis, this.state.market, outcomeTokenIndex, outcomeTokenCount)
+    this.setState({ buttonBuyState: 'LOADING' })
+    try {
+      await buyOutcomes(this.props.gnosis, this.state.market, outcomeTokenIndex, outcomeTokenCount)
+      prevNetOutcomeTokensSold[outcomeTokenIndex] = Decimal(prevNetOutcomeTokensSold[outcomeTokenIndex]).add(outcomeTokenCount).toString()
 
-    prevNetOutcomeTokensSold[outcomeTokenIndex] = Decimal(prevNetOutcomeTokensSold[outcomeTokenIndex]).add(outcomeTokenCount).toString()
-
-    this.setState({ market: { netOutcomeTokensSold: prevNetOutcomeTokensSold } })
+      this.setState({ 
+        market: {
+          ...this.state.market,
+          netOutcomeTokensSold: prevNetOutcomeTokensSold
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+    this.setState({ buttonBuyState: 'READY' })
   }
 
   render() {
@@ -57,7 +70,12 @@ class MarketView extends React.Component {
     const { market } = this.state
 
     if (!market) {
-      return null
+      return (
+        <div>
+          <Typography component="h1">Loading your PM experience...</Typography>
+          <CircularProgress />
+        </div>
+      )
     }
   
     const resolutionDate = moment.utc(market.resolutionDate).local()
@@ -88,7 +106,9 @@ class MarketView extends React.Component {
               variant="raised" 
               color="default"
               onClick={this.handleBuyShares}>
-              3: Buy Shares
+              {this.state.buttonBuyState === 'READY' ? '3: Buy Shares' : (
+                <CircularProgress size={18} />
+              )}
             </Button>
             <Button 
               variant="raised" 

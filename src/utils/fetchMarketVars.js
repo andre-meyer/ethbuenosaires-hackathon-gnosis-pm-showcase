@@ -7,14 +7,13 @@ const fetchMarketVars = async (gnosisInstance, contracts) => {
   const funding = await contracts.market.funding()
   const netOutcomeTokensSold = await Promise.all(contracts.outcomeTokens.map(async (_, i) => (await contracts.market.netOutcomeTokensSold(i)).toNumber()))
 
-  const marginalPrices = contracts.outcomeTokens.map((outcomeToken, outcomeTokenIndex) => calcLMSRMarginalPrice(netOutcomeTokensSold, funding, outcomeTokenIndex).toNumber())
-
   const market = {
+    address: contracts.market.address,
     ...contracts.eventDescription,
     type,
     netOutcomeTokensSold,
     funding,
-    marginalPrices,
+    outcomes: contracts.eventDescription.outcomes || ["SHORT", "LONG"],
   }
 
   if (type === 'SCALAR') {
